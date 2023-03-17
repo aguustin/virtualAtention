@@ -63,7 +63,8 @@ export const enterAdminAccount = async (req, res) => {
 
             if(succesfullCompare){
 
-                res.redirect("http://localhost:3000/Admin");
+                res.send(searchForAdmin);
+                //res.redirect("http://localhost:3000/Admin");
 
             }else{
 
