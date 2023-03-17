@@ -1,0 +1,25 @@
+.divForm{
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+
+.change{
+    position: absolute;
+    margin-right: 1rem;
+    margin-top: 1rem;
+}
+
+.userForm{
+    border-radius: .5rem;
+    border: 1px solid rgb(141, 140, 140);
+    height: 300px;
+    width: 20vw;
+    margin: 0 auto;
+}
+
+.userForm input{
+    padding: 1rem 1rem;
+    width: 60%;
+}
+
