@@ -51,15 +51,13 @@ export const getUsers = async (req, res) => {
 
 export const deleteUsers = async (req, res) => {
 
-    const name = req.body.name;
+    const id = req.params.id;
 
-    const lastname = req.body.lastname;
+    await User.findByIdAndDelete({_id: id});
 
-    const findUser = await User.findOneAndDelete({name: name, lastname: lastname});
-
-    console.log(findUser);
-
-    res.sendStatus(200);
+    const refresh = await User.find().sort({userCount: +1})
+    
+    res.send(refresh);
 }
 
 export const deleteAllUsers = async (req, res) => {

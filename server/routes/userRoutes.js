@@ -7,7 +7,7 @@ router.post("/enterUser", enterUser);
 
 router.get("/getUsers", getUsers);
 
-router.delete("/deleteUser", deleteUsers);
+router.delete("/deleteUser/:id", deleteUsers);
 
 router.delete("/deleteAllUsers", deleteAllUsers);
 

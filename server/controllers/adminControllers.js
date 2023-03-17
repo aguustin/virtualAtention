@@ -44,27 +44,25 @@ export const createAdminAccount = async (req, res) => {
 export const enterAdminAccount = async (req, res) => {
 
     const email = req.body.email;
-
     const password = req.body.password;
-    
-    if(!email || !password){
 
+    if(!email || !password){
+      
         console.log("ingresar credenciales");
 
-        res.sendStatus(500);
+        res.sendStatus(404);
 
     }else{
 
         const searchForAdmin = await Admin.find({email: email});
 
-        if(searchForAdmin){
+        if(searchForAdmin != 0){
 
             const succesfullCompare = await bcrypt.compareSync(password, searchForAdmin[0].password);
 
             if(succesfullCompare){
 
                 res.send(searchForAdmin);
-                //res.redirect("http://localhost:3000/Admin");
 
             }else{
 
