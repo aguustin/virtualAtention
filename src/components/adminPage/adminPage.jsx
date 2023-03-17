@@ -7,15 +7,19 @@ import AdminUserContext from "../../context/apiContext";
 
 const AdminPage = () => {
 
-    const [allUsers, setAllUsers] = useState([]);
-    const {adminInfo} = useContext(AdminUserContext);
+    const {deleteUser, allUsers, setAllUsers} = useContext(AdminUserContext);
+
 
     useEffect(() => {
-        const users = getUsersAxios();
-        allUsers(users);
+        (async () => {
+            const users = await getUsersAxios();
+            setAllUsers(users.data);
+        })();
+       
     }, []);
 
-    console.log(adminInfo);
+    
+
     return(
         <div>
             <nav>
@@ -28,58 +32,14 @@ const AdminPage = () => {
                 <thead>
                     <td>Nombre</td>
                     <td>Apellido</td>
-                    <button>Aceptar</button>
-                    <button>Borrar</button>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Nombre</td>
-                        <td>Apellido</td>
+                    {allUsers.map(a => <tr key={a._id}>
+                        <td>{a.name}</td>
+                        <td>{a.lastname}</td>
                         <button>Aceptar</button>
-                        <button>Borrar</button>
-                    </tr>
-                    <tr>
-                        <td>Nombre</td>
-                        <td>Apellido</td>
-                        <button>Aceptar</button>
-                        <button>Borrar</button>
-                    </tr>
-                    <tr>
-                        <td>Nombre</td>
-                        <td>Apellido</td>
-                        <button>Aceptar</button>
-                        <button>Borrar</button>
-                    </tr>
-                    <tr>
-                        <td>Nombre</td>
-                        <td>Apellido</td>
-                        <button>Aceptar</button>
-                        <button>Borrar</button>
-                    </tr>
-                    <tr>
-                        <td>Nombre</td>
-                        <td>Apellido</td>
-                        <button>Aceptar</button>
-                        <button>Borrar</button>
-                    </tr>
-                    <tr>
-                        <td>Nombre</td>
-                        <td>Apellido</td>
-                        <button>Aceptar</button>
-                        <button>Borrar</button>
-                    </tr>
-                    <tr>
-                        <td>Nombre</td>
-                        <td>Apellido</td>
-                        <button>Aceptar</button>
-                        <button>Borrar</button>
-                    </tr>
-                    <tr>
-                        <td>Nombre</td>
-                        <td>Apellido</td>
-                        <button>Aceptar</button>
-                        <button>Borrar</button>
-                    </tr>
+                        <button onClick={() => deleteUser(a._id)}>Borrar</button>
+                    </tr>)}
                 </tbody>
             </table>
         </div>
