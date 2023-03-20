@@ -54,10 +54,8 @@ export const deleteUsers = async (req, res) => {
     const id = req.params.id;
 
     await User.findByIdAndDelete({_id: id});
-
-    const refresh = await User.find().sort({userCount: +1})
     
-    res.send(refresh);
+    res.sendStatus(200);
 }
 
 export const deleteAllUsers = async (req, res) => {
