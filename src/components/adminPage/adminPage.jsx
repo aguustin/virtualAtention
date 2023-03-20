@@ -1,49 +1,50 @@
 
 //deleteUsers
 // deleteAllUsers 
-import { useContext, useEffect, useState } from "react";
-import { getUsersAxios } from "../../api/requests";
+import { useContext, useEffect } from "react";
+//import { getUsersAxios } from "../../api/requests";
 import AdminUserContext from "../../context/apiContext";
+import UsersFiles from "../usersFiles/usersFiles";
+
 
 const AdminPage = () => {
 
-    const {deleteUser, allUsers, setAllUsers} = useContext(AdminUserContext);
+    const {getUsersContext, adminInfo, allUsers} = useContext(AdminUserContext);
 
 
     useEffect(() => {
-        (async () => {
-            const users = await getUsersAxios();
-            setAllUsers(users.data);
+
+        (async() => {
+            await getUsersContext();
         })();
        
     }, []);
 
-    
+    if(allUsers.length === 0){
+        return(
+            <div>
+                <h1>no hay ningun usuario</h1>
+            </div>
+        )
+      
+    }else{
 
-    return(
-        <div>
-            <nav>
-                <div>
-                    Municipalidad
-                </div>
-                <p>NombreAdmin</p>
-            </nav>
-            <table>
-                <thead>
-                    <td>Nombre</td>
-                    <td>Apellido</td>
-                </thead>
-                <tbody>
-                    {allUsers.map(a => <tr key={a._id}>
-                        <td>{a.name}</td>
-                        <td>{a.lastname}</td>
-                        <button>Aceptar</button>
-                        <button onClick={() => deleteUser(a._id)}>Borrar</button>
-                    </tr>)}
-                </tbody>
-            </table>
-        </div>
-    )
+        return(
+            <div>
+                <nav>
+                    <div>
+                        Municipalidad
+                    </div>
+                    <p>{adminInfo[0].name}</p>
+                </nav>
+            { allUsers.map(allU => (
+                 <UsersFiles  allU={allU} key={allU._id} />
+            )) }
+            </div>
+        )
+
+    }
+
 }
 
 export default AdminPage;
